@@ -1,0 +1,177 @@
+# 🚀 Full Stack MERN Project
+
+This project contains a **client (React + Vite)** and a **server (Node.js + Express)** inside the root folder.  
+Follow the simple setup steps below to run the project locally or using Docker.
+
+## 📁 Folder Structure
+
+```
+root-folder/
+│
+├── client/       # React Frontend
+│   ├── package.json
+│   └── .env
+│
+├── server/       # Node.js Backend
+│   ├── package.json
+│   └── .env
+│
+└── README.md
+```
+
+# 🔧 Installation & Setup Guide
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone <your-github-repo-url>
+cd <project-folder>
+```
+
+# 🛠 Backend Setup (Server)
+
+### 2️⃣ Open Terminal 1, navigate to server folder:
+
+```bash
+cd server
+```
+
+### 3️⃣ Install server dependencies:
+
+```bash
+npm install
+```
+
+### 4️⃣ Create `.env` file inside `/server`:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_url_here
+JWT_SECRET=your_secret_here
+```
+
+### 5️⃣ Start backend:
+
+```bash
+npm run dev
+```
+
+# 🎨 Frontend Setup (Client)
+
+### 6️⃣ Open Terminal 2, navigate to client folder:
+
+```bash
+cd client
+```
+
+### 7️⃣ Install client dependencies:
+
+```bash
+npm install
+```
+
+### 8️⃣ Create `.env` file inside `/client`:
+
+```
+VITE_API_URL=http://localhost:5000
+```
+
+### 9️⃣ Start frontend:
+
+```bash
+npm run dev
+```
+
+# 🌐 Open App in Browser
+
+👉 http://localhost:5173
+
+# 📜 Available Scripts
+
+## Server
+
+| Command | Description |
+|--------|-------------|
+| `npm run dev` | Run backend |
+
+## Client
+
+| Command | Description |
+|--------|-------------|
+| `npm run dev` | Run frontend |
+
+# 🐳 Docker Setup
+
+## 1. Server Dockerfile
+
+```dockerfile
+FROM node:18
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD ["npm", "run", "dev"]
+```
+
+## 2. Client Dockerfile
+
+```dockerfile
+FROM node:18
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5173
+CMD ["npm", "run", "dev"]
+```
+
+## 3. docker-compose.yml
+
+```yaml
+version: "3.9"
+
+services:
+  server:
+    build: ./server
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./server/.env
+    restart: unless-stopped
+
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./client/.env
+    depends_on:
+      - server
+    restart: unless-stopped
+```
+
+# ▶️ Run Project with Docker
+
+```bash
+docker-compose up --build
+```
+
+# ⏹ Stop Containers
+
+```bash
+docker-compose down
+```
+
+# 🎯 Tech Stack
+
+- React + Vite
+- Node.js + Express
+- MongoDB
+- Docker
+
+# 📄 License
+
+MIT
